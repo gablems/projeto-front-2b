@@ -25,7 +25,13 @@ export default function Produtos() {
 
     return  (
         <div>
-
+            {
+                prods === null ?
+                    <p>Carregando lista de produtos...</p> :
+                    <div>
+                        <h2>Lista de produtos</h2>
+                    </div>
+            }
         </div>
     )
 }
