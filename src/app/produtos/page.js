@@ -7,8 +7,8 @@ export default function Produtos() {
 
     const [prods, setProds] = useState(null);
     const [categorias, setCategorias] = useState(null);
-    const [prodSelected, setProdSelected] = useStates(null);
-    const []
+    const [prodSelected, setProdSelected] = useState(null);
+    const [busca, setBusca] = useState('');
 
     useEffect(() => {
         const fetchProdutos = async () => {
@@ -48,10 +48,10 @@ export default function Produtos() {
 
     const getNomeCategoria = (id_categoria) => {
         const categoria = categorias?.find(cat => cat.id === id_categoria);
-        return categoria? categoria.nome : 'Categoria Indisponível';
+        return categoria ? categoria.nome : 'Categoria Indisponível';
     }
 
-    const filtro = prod?.filter(p => p.nome.includes(busca));
+    const filtro = prods?.filter( p => p.nome.includes(busca));
 
     return (
         <div>
@@ -62,9 +62,10 @@ export default function Produtos() {
 
                         <h2>Lista de produtos</h2>
                         {filtro && filtro.map(f => (
-                            <p key = {f.id}>{f.nome}</p>
+                            <p key={f.id}>{f.nome}</p>
                         ))}
-                        <input type="text" placeholder="Faça sua busca" value={busca} onChance={(e) => {setBusca(e.target.value)}} />
+                        <input type="text" placeholder="Faça sua busca" value={busca} onChange={(e) => { setBusca(e.target.value) }} />
+                        {/* crie um input para busca e crie um estado para este input */}
                         <table className={styles.tbl}>
                             <thead>
                                 <tr>
@@ -92,7 +93,8 @@ export default function Produtos() {
                                 }
                             </tbody>
                         </table>
-                                {prodSelected && <CardProd />}
+                        {prodSelected && <CardProd produto={prodSelected} />}
+
                         {/* 
                         categoria_id: 1
                         descricao: "Notebook com processador Intel Core i5 e 8 GB de RAM."
